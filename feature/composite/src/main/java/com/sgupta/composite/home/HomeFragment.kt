@@ -27,11 +27,6 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
-    override fun onResume() {
-        super.onResume()
-        viewModel.getTrendingMovies()
-    }
-
     companion object {
         @JvmStatic
         fun newInstance() = HomeFragment()

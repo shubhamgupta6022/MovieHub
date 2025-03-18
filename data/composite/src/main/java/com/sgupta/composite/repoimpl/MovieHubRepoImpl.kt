@@ -22,4 +22,15 @@ class MovieHubRepoImpl @Inject constructor(
             }
         )
     }
+
+    override fun getNowPlayingMovies(page: Int): Flow<Resource<MovieListDomainModel>> {
+        return toResponseFlow(
+            apiCall = {
+                apiService.getNowPlayingMovies(page = page)
+            },
+            mapper = {
+                it?.toMovieListDomainModel()
+            }
+        )
+    }
 }

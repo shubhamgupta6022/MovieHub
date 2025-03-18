@@ -6,4 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface MovieHubRepo {
     fun getTrendingMovies(): Flow<Resource<MovieListDomainModel>>
+    fun getNowPlayingMovies(page: Int): Flow<Resource<MovieListDomainModel>>
 }
