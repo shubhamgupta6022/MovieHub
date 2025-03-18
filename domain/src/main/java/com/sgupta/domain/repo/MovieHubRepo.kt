@@ -1,8 +1,9 @@
 package com.sgupta.domain.repo
 
 import com.sgupta.core.network.Resource
+import com.sgupta.domain.model.MovieListDomainModel
 import kotlinx.coroutines.flow.Flow
 
 interface MovieHubRepo {
-    fun getTrendingMovies(): Flow<Resource<Any>>
+    fun getTrendingMovies(): Flow<Resource<MovieListDomainModel>>
 }
