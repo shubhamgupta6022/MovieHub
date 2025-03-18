@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -37,6 +39,18 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
+
+    // dagger hilt dependency
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
+
+    implementation(project(":util:core"))
+
+    // OkHttp for logging
+    implementation(libs.logging.interceptor)
+    // Retrofit Converter
+    implementation(libs.converter.gson)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
