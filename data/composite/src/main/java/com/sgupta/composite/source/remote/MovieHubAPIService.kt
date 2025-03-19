@@ -1,4 +1,4 @@
-package com.sgupta.composite.api
+package com.sgupta.composite.source.remote
 
 import com.sgupta.composite.model.MovieAPIResponse
 import retrofit2.Response

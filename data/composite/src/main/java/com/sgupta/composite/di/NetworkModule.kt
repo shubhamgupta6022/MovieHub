@@ -1,6 +1,6 @@
 package com.sgupta.composite.di
 
-import com.sgupta.composite.api.MovieHubAPIService
+import com.sgupta.composite.source.remote.MovieHubAPIService
 import com.sgupta.network.client.NetworkClient
 import com.sgupta.network.client.NetworkHost
 import dagger.Module
