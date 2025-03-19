@@ -29,7 +29,7 @@ class HomeViewModel @Inject constructor(
         fetchMovies()
     }
 
-    fun fetchMovies() {
+    private fun fetchMovies() {
         val trendingMoviesFlow = getTrendingMoviesUseCase.execute(GetTrendingMoviesUseCase.Param(1))
         val nowPlayingMoviesFlow =
             getNowPlayingMoviesUseCase.execute(GetNowPlayingMoviesUseCase.Param(1))
@@ -63,7 +63,7 @@ class HomeViewModel @Inject constructor(
                                 title = movie.title.orEmpty(),
                                 rating = movie.voteAverage ?: 0.0,
                                 year = movie.releaseDate?.substring(0, 4)?.toIntOrNull() ?: 0,
-                                posterUrl = movie.posterPath.orEmpty()
+                                posterUrl = movie.posterUrl.orEmpty()
                             )
                         })
                     }
@@ -76,7 +76,7 @@ class HomeViewModel @Inject constructor(
                                 title = movie.title.orEmpty(),
                                 rating = movie.voteAverage ?: 0.0,
                                 year = movie.releaseDate?.substring(0, 4)?.toIntOrNull() ?: 0,
-                                posterUrl = movie.posterPath.orEmpty()
+                                posterUrl = movie.posterUrl.orEmpty()
                             )
                         })
                     }

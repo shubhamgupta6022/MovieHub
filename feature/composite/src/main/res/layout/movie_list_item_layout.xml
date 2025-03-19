@@ -35,6 +35,7 @@
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/tvYear"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/ivPoster"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Mean Girls" />

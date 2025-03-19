@@ -11,8 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.sgupta.composite.databinding.FragmentHomeBinding
 import com.sgupta.composite.manager.NowPlayingMoviesAdapterManager
 import com.sgupta.composite.manager.TrendingMoviesAdapterManager
-import com.sgupta.composite.model.MovieListItemUiModel
-import com.sgupta.composite.model.TrendingMovieUiModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -49,22 +47,19 @@ class HomeFragment : Fragment() {
         setRecyclerView()
     }
 
-    override fun onResume() {
-        super.onResume()
-        viewModel.fetchMovies()
-    }
-
     private fun observeViewStates() {
-        // Observe view state
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.viewState.collect { state ->
                 when (state) {
                     is HomeViewState.Loading -> {
+                        binding.progressBar.visibility = View.VISIBLE
                     }
 
                     is HomeViewState.Success -> {
                         trendingMoviesAdapter.submitList(state.trendingItems)
                         nowPlayingMoviesAdapter.submitList(state.nowPlayingItems)
+                        binding.progressBar.visibility = View.GONE
+                        binding.nestedScrollView.visibility = View.VISIBLE
                     }
 
                     is HomeViewState.Error -> {}
@@ -77,10 +72,12 @@ class HomeFragment : Fragment() {
         binding.rvTrendingMovies.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = trendingMoviesAdapter
+            itemAnimator = null
         }
         binding.rvNowPlaying.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter = nowPlayingMoviesAdapter
+            itemAnimator = null
         }
     }
 

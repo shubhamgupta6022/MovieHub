@@ -1,6 +1,7 @@
 package com.sgupta.composite.model
 
 import com.google.gson.annotations.SerializedName
+import com.sgupta.core.IMAGE_BASE_URL
 import com.sgupta.domain.model.MovieItemDomainModel
 import com.sgupta.domain.model.MovieListDomainModel
 
@@ -38,7 +39,7 @@ fun MovieAPIResponse.toMovieListDomainModel() = MovieListDomainModel(
 
 fun MovieItemResponse.toMovieItemDomainModel() = MovieItemDomainModel(
     adult = adult,
-    backdropPath = backdropPath,
+    backdropUrl = "$IMAGE_BASE_URL$backdropPath",
     genreIds = genreIds,
     id = id,
     mediaType = mediaType,
@@ -46,7 +47,7 @@ fun MovieItemResponse.toMovieItemDomainModel() = MovieItemDomainModel(
     originalTitle = originalTitle,
     overview = overview,
     popularity = popularity,
-    posterPath = posterPath,
+    posterUrl = "$IMAGE_BASE_URL$posterPath",
     releaseDate = releaseDate,
     title = title,
     video = video,

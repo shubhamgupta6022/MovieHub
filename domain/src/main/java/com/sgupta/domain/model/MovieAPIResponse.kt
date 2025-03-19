@@ -9,7 +9,7 @@ data class MovieListDomainModel(
 
 data class MovieItemDomainModel(
     val adult: Boolean? = null,
-    val backdropPath: String? = null,
+    val backdropUrl: String? = null,
     val genreIds: List<Int>? = null,
     val id: Int? = null,
     val mediaType: String? = null,
@@ -17,7 +17,7 @@ data class MovieItemDomainModel(
     val originalTitle: String? = null,
     val overview: String? = null,
     val popularity: Double? = null,
-    val posterPath: String? = null,
+    val posterUrl: String? = null,
     val releaseDate: String? = null,
     val title: String? = null,
     val video: Boolean? = null,

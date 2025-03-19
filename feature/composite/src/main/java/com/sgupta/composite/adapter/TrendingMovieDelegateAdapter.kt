@@ -3,6 +3,9 @@ package com.sgupta.composite.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.sgupta.composite.databinding.TrendingMovieItemLayoutBinding
 import com.sgupta.composite.model.TrendingMovieUiModel
 import com.sgupta.core.delegator.DelegateAdapter
@@ -13,6 +16,10 @@ class TrendingMovieDelegateAdapter @Inject constructor() :
     DelegateAdapter<TrendingMovieUiModel, TrendingMovieDelegateAdapter.ViewHolder>(
         TrendingMovieUiModel::class.java
     ) {
+
+    private val glideOptions = RequestOptions()
+        .diskCacheStrategy(DiskCacheStrategy.ALL)
+        .centerCrop()
 
     override fun createViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
         val binding = TrendingMovieItemLayoutBinding.inflate(
@@ -42,9 +49,10 @@ class TrendingMovieDelegateAdapter @Inject constructor() :
                 tvMovieYear.text = model.year.toString()
                 // Add image loading logic here using your preferred image loading library
                 // For example, using Glide:
-                // Glide.with(moviePoster)
-                //     .load(model.posterUrl)
-                //     .into(moviePoster)
+                 Glide.with(moviePoster.context)
+                     .load(model.posterUrl)
+                     .apply(glideOptions)
+                     .into(moviePoster)
             }
         }
     }
