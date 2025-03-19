@@ -6,16 +6,24 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
+import com.sgupta.composite.R
+import com.sgupta.composite.adapter.states.TrendingMovieItemViewState
 import com.sgupta.composite.databinding.TrendingMovieItemLayoutBinding
 import com.sgupta.composite.model.TrendingMovieUiModel
 import com.sgupta.core.delegator.DelegateAdapter
 import com.sgupta.core.delegator.DelegateAdapterItem
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class TrendingMovieDelegateAdapter @Inject constructor() :
     DelegateAdapter<TrendingMovieUiModel, TrendingMovieDelegateAdapter.ViewHolder>(
         TrendingMovieUiModel::class.java
     ) {
+
+    private val _uiStates = MutableSharedFlow<TrendingMovieItemViewState>()
+    val uiStates = _uiStates.asSharedFlow()
 
     private val glideOptions = RequestOptions()
         .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -36,7 +44,10 @@ class TrendingMovieDelegateAdapter @Inject constructor() :
         payloads: List<DelegateAdapterItem.Payloadable>,
         position: Int
     ) {
-        viewHolder.bind(model)
+        when(payloads.firstOrNull()) {
+            is TrendingMovieUiModel.ChangePayload.BookmarkStateChanged -> viewHolder.bindBookmarkState(model)
+            else -> viewHolder.bind(model)
+        }
     }
 
     inner class ViewHolder(private val binding: TrendingMovieItemLayoutBinding) :
@@ -53,6 +64,28 @@ class TrendingMovieDelegateAdapter @Inject constructor() :
                      .load(model.posterUrl)
                      .apply(glideOptions)
                      .into(moviePoster)
+                bindBookmarkState(model)
+            }
+        }
+
+        fun bindBookmarkState(model: TrendingMovieUiModel) {
+            with(binding) {
+                if (model.bookmark) {
+                    btnBookmark.setImageResource(R.drawable.ic_bookmark_filled)
+                } else {
+                    btnBookmark.setImageResource(R.drawable.ic_bookmark_outline)
+                }
+                setClickListeners(model)
+            }
+        }
+
+        private fun setClickListeners(model: TrendingMovieUiModel) {
+            with(binding) {
+                btnBookmark.setOnClickListener {
+                    delegateScope.launch {
+                        _uiStates.emit(TrendingMovieItemViewState.BookmarkClicked(model.id, model.bookmark))
+                    }
+                }
             }
         }
     }

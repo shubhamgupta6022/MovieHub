@@ -14,7 +14,8 @@ class TrendingMovieDomainModelMapper @Inject constructor() : Mapper<MovieItemDom
             title = from.title.orEmpty(),
             rating = String.format("%.1f", from.voteAverage ?: 0.0),
             year = from.releaseDate?.substring(0, 4)?.toIntOrNull() ?: 0,
-            posterUrl = from.posterUrl.orEmpty()
+            posterUrl = from.posterUrl.orEmpty(),
+            bookmark = from.bookmark
         )
     }
 }

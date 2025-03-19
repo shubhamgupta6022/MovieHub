@@ -1,25 +1,44 @@
 package com.sgupta.composite.model
 
 import com.sgupta.core.delegator.DelegateAdapterItem
+import java.util.Objects
 
 data class MovieListItemUiModel(
     val id: Int,
     val title: String,
     val rating: String,
     val year: Int,
-    val posterUrl: String
+    val posterUrl: String,
+    val bookmark: Boolean
 ) : DelegateAdapterItem {
     override fun id(): Any = id
 
-    override fun content(): Any = Content(id)
+    override fun content(): Any = Content(id, bookmark)
 
-    inner class Content(val id: Int) {
+    override fun payload(other: Any): DelegateAdapterItem.Payloadable {
+        if (other is MovieListItemUiModel) {
+            return when {
+                other.bookmark != bookmark -> ChangePayload.BookmarkStateChanged
+                else -> DelegateAdapterItem.Payloadable.None
+            }
+        }
+        return super.payload(other)
+    }
+
+    inner class Content(val id: Int, val bookmark: Boolean) {
         override fun equals(other: Any?): Boolean {
+            if (other is Content) {
+                return bookmark == other.bookmark
+            }
             return super.equals(other)
         }
 
         override fun hashCode(): Int {
-            return super.hashCode()
+            return 32 * Objects.hashCode(bookmark)
         }
+    }
+
+    sealed class ChangePayload : DelegateAdapterItem.Payloadable {
+        data object BookmarkStateChanged : ChangePayload()
     }
 }

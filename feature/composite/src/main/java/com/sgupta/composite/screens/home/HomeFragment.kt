@@ -9,8 +9,10 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sgupta.composite.databinding.FragmentHomeBinding
-import com.sgupta.composite.manager.NowPlayingMoviesAdapterManager
-import com.sgupta.composite.manager.TrendingMoviesAdapterManager
+import com.sgupta.composite.adapter.manager.NowPlayingMoviesAdapterManager
+import com.sgupta.composite.adapter.manager.TrendingMoviesAdapterManager
+import com.sgupta.composite.adapter.states.MovieListItemViewState
+import com.sgupta.composite.adapter.states.TrendingMovieItemViewState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -26,11 +28,17 @@ class HomeFragment : Fragment() {
     private val nowPlayingMoviesAdapter by lazy {
         nowPlayingMoviesAdapterManager.createCompositeAdapter()
     }
+    private val nowPlayingMoviesUiStates by lazy {
+        nowPlayingMoviesAdapterManager.createMergedUiStates()
+    }
 
     @Inject
     lateinit var trendingMoviesAdapterManager: TrendingMoviesAdapterManager
     private val trendingMoviesAdapter by lazy {
         trendingMoviesAdapterManager.createCompositeAdapter()
+    }
+    private val trendingMoviesAdapterUiStates by lazy {
+        trendingMoviesAdapterManager.createCompositeAdapterUiStates()
     }
 
     override fun onCreateView(
@@ -63,6 +71,32 @@ class HomeFragment : Fragment() {
                     }
 
                     is HomeViewState.Error -> {}
+                    is HomeViewState.NowPlayingItemsUpdated -> {
+                        nowPlayingMoviesAdapter.submitList(state.list)
+                    }
+                    is HomeViewState.TrendingMovieItemsUpdated -> {
+                        trendingMoviesAdapter.submitList(state.list)
+                    }
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            nowPlayingMoviesUiStates.collect { state ->
+                when (state) {
+                    is MovieListItemViewState.BookmarkClicked -> {
+                        viewModel.updateState(state)
+                    }
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            trendingMoviesAdapterUiStates.collect { state ->
+                when (state) {
+                    is TrendingMovieItemViewState.BookmarkClicked -> {
+                        viewModel.updateState(state)
+                    }
                 }
             }
         }
