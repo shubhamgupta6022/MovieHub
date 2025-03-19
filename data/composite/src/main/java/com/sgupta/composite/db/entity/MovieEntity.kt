@@ -16,7 +16,8 @@ data class MovieEntity(
     val releaseDate: String?,
     val voteAverage: Double?,
     val popularity: Double?,
-    val lastUpdated: Long = System.currentTimeMillis()
+    val lastUpdated: Long = System.currentTimeMillis(),
+    val bookmark: Boolean = false
 ) {
     fun toDomainModel() = MovieItemDomainModel(
         id = id,
@@ -26,7 +27,8 @@ data class MovieEntity(
         backdropUrl = backdropUrl,
         releaseDate = releaseDate,
         voteAverage = voteAverage,
-        popularity = popularity
+        popularity = popularity,
+        bookmark = bookmark
     )
 
     companion object {
@@ -39,7 +41,8 @@ data class MovieEntity(
             backdropUrl = model.backdropUrl,
             releaseDate = model.releaseDate,
             voteAverage = model.voteAverage,
-            popularity = model.popularity
+            popularity = model.popularity,
+            bookmark = model.bookmark
         )
     }
 }

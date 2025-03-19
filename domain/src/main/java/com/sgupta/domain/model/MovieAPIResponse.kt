@@ -22,5 +22,6 @@ data class MovieItemDomainModel(
     val title: String? = null,
     val video: Boolean? = null,
     val voteAverage: Double? = null,
-    val voteCount: Int? = null
+    val voteCount: Int? = null,
+    val bookmark: Boolean = false
 )

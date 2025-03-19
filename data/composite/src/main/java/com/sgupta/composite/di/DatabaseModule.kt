@@ -3,7 +3,6 @@ package com.sgupta.composite.di
 import android.content.Context
 import androidx.room.Room
 import com.sgupta.composite.db.MovieDatabase
-import com.sgupta.composite.db.MovieDatabase.Companion.DATABASE_NAME
 import com.sgupta.composite.db.dao.MovieDao
 import dagger.Module
 import dagger.Provides
@@ -20,15 +19,18 @@ object DatabaseModule {
     @Singleton
     fun provideMovieDatabase(
         @ApplicationContext context: Context
-    ): MovieDatabase = Room.databaseBuilder(
-        context,
-        MovieDatabase::class.java,
-        DATABASE_NAME
-    ).build()
+    ): MovieDatabase {
+        return Room.databaseBuilder(
+            context,
+            MovieDatabase::class.java,
+            MovieDatabase.DATABASE_NAME
+        )
+        .build()
+    }
 
     @Provides
     @Singleton
-    fun provideMovieDao(
-        database: MovieDatabase
-    ): MovieDao = database.movieDao()
+    fun provideMovieDao(database: MovieDatabase): MovieDao {
+        return database.movieDao()
+    }
 }
