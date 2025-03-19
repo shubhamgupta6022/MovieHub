@@ -2,7 +2,7 @@ package com.sgupta.moviehub
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.sgupta.composite.home.HomeFragment
+import com.sgupta.composite.screens.home.HomeFragment
 import com.sgupta.moviehub.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Typography.SemiBold" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/color_primary_black</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:lineHeight" tools:targetApi="p">16dp</item>
+        <item name="android:fontFamily">@font/lexend_deca_semi_bold</item>
+    </style>
+
+    <style name="Typography.Message" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/color_primary_black</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:lineHeight" tools:targetApi="p">16dp</item>
+        <item name="android:fontFamily">@font/lexend_deca_regular</item>
+    </style>
+</resources>

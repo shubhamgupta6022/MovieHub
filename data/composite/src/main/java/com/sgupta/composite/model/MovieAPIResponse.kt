@@ -6,7 +6,7 @@ import com.sgupta.domain.model.MovieListDomainModel
 
 data class MovieAPIResponse(
     @SerializedName("page") val page: Int,
-    @SerializedName("movieItemResponses") val movieItemResponses: List<MovieItemResponse>? = null,
+    @SerializedName("results") val movieItemResponses: List<MovieItemResponse>? = null,
     @SerializedName("total_pages") val totalPages: Int,
     @SerializedName("total_results") val totalResults: Int
 )
