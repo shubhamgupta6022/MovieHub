@@ -45,7 +45,7 @@ class TrendingMovieDelegateAdapter @Inject constructor() :
         fun bind(model: TrendingMovieUiModel) {
             with(binding) {
                 movieTitle.text = model.title
-                movieRating.text = model.rating.toString()
+                movieRating.text = model.rating
                 tvMovieYear.text = model.year.toString()
                 // Add image loading logic here using your preferred image loading library
                 // For example, using Glide:

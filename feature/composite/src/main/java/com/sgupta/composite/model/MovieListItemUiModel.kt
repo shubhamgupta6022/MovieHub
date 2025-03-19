@@ -5,7 +5,7 @@ import com.sgupta.core.delegator.DelegateAdapterItem
 data class MovieListItemUiModel(
     val id: Int,
     val title: String,
-    val rating: Double,
+    val rating: String,
     val year: Int,
     val posterUrl: String
 ) : DelegateAdapterItem {

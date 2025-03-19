@@ -2,8 +2,8 @@ package com.sgupta.composite.screens.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sgupta.composite.model.MovieListItemUiModel
-import com.sgupta.composite.model.TrendingMovieUiModel
+import com.sgupta.composite.mapper.MovieItemDomainModelMapper
+import com.sgupta.composite.mapper.TrendingMovieDomainModelMapper
 import com.sgupta.core.ViewState
 import com.sgupta.core.delegator.DelegateAdapterItem
 import com.sgupta.core.network.Resource
@@ -19,7 +19,9 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val getTrendingMoviesUseCase: GetTrendingMoviesUseCase,
-    private val getNowPlayingMoviesUseCase: GetNowPlayingMoviesUseCase
+    private val getNowPlayingMoviesUseCase: GetNowPlayingMoviesUseCase,
+    private val movieItemDomainModelMapper: MovieItemDomainModelMapper,
+    private val trendingMovieDomainModelMapper: TrendingMovieDomainModelMapper
 ) : ViewModel() {
 
     private val _viewState = MutableStateFlow<HomeViewState>(HomeViewState.Loading)
@@ -58,26 +60,14 @@ class HomeViewModel @Inject constructor(
                     // Add trending movies
                     trendingResult.data?.movieItemResponses?.let { trendingMovies ->
                         trendingItems.addAll(trendingMovies.map { movie ->
-                            TrendingMovieUiModel(
-                                id = movie.id ?: 0,
-                                title = movie.title.orEmpty(),
-                                rating = movie.voteAverage ?: 0.0,
-                                year = movie.releaseDate?.substring(0, 4)?.toIntOrNull() ?: 0,
-                                posterUrl = movie.posterUrl.orEmpty()
-                            )
+                            trendingMovieDomainModelMapper.convert(movie)
                         })
                     }
 
                     // Add now playing movies
                     nowPlayingResult.data?.movieItemResponses?.let { nowPlayingMovies ->
                         nowPlayingItems.addAll(nowPlayingMovies.map { movie ->
-                            MovieListItemUiModel(
-                                id = movie.id ?: 0,
-                                title = movie.title.orEmpty(),
-                                rating = movie.voteAverage ?: 0.0,
-                                year = movie.releaseDate?.substring(0, 4)?.toIntOrNull() ?: 0,
-                                posterUrl = movie.posterUrl.orEmpty()
-                            )
+                            movieItemDomainModelMapper.convert(movie)
                         })
                     }
 

@@ -46,7 +46,7 @@ class MovieListItemDelegateAdapter @Inject constructor() :
         fun bind(model: MovieListItemUiModel) {
             with(binding) {
                 tvTitle.text = model.title
-                tvRating.text = String.format("%.1f", model.rating)
+                tvRating.text = model.rating
                 tvYear.text = model.year.toString()
 
                 // Load image with Glide
