@@ -1,6 +1,7 @@
 package com.sgupta.composite.screens.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,10 +44,13 @@ class HomeFragment : Fragment() {
         trendingMoviesAdapterManager.createCompositeAdapterUiStates()
     }
 
+    private val TAG = "Homefargment"
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        Log.d(TAG, "onCreateView $this")
         binding = FragmentHomeBinding.inflate(LayoutInflater.from(context), container, false)
         return binding.root
     }
@@ -56,6 +60,17 @@ class HomeFragment : Fragment() {
         observeViewStates()
         setRecyclerView()
         setupClickListeners()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Log.d(TAG, "onDestroyView")
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        Log.d(TAG, "onDetach")
+
     }
 
     private fun setupClickListeners() {
@@ -76,7 +91,6 @@ class HomeFragment : Fragment() {
                         trendingMoviesAdapter.submitList(state.trendingItems)
                         nowPlayingMoviesAdapter.submitList(state.nowPlayingItems)
                         binding.progressBar.visibility = View.GONE
-                        binding.nestedScrollView.visibility = View.VISIBLE
                     }
 
                     is HomeViewState.Error -> {}
