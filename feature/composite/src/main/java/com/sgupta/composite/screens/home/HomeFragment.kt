@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.sgupta.composite.R
 import com.sgupta.composite.databinding.FragmentHomeBinding
 import com.sgupta.composite.adapter.manager.NowPlayingMoviesAdapterManager
 import com.sgupta.composite.adapter.manager.TrendingMoviesAdapterManager
@@ -53,6 +55,13 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         observeViewStates()
         setRecyclerView()
+        setupClickListeners()
+    }
+
+    private fun setupClickListeners() {
+        binding.ivBookmark.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_bookmarkFragment)
+        }
     }
 
     private fun observeViewStates() {
@@ -104,12 +113,13 @@ class HomeFragment : Fragment() {
 
     private fun setRecyclerView() {
         binding.rvTrendingMovies.apply {
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = trendingMoviesAdapter
             itemAnimator = null
         }
         binding.rvNowPlaying.apply {
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = nowPlayingMoviesAdapter
             itemAnimator = null
         }
