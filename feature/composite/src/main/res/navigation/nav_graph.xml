@@ -18,18 +18,58 @@
         <action
             android:id="@+id/action_homeFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
+
+        <action
+            android:id="@+id/action_homeFragment_to_detailFragment"
+            app:destination="@id/detailFragment">
+            <argument
+                android:name="movieId"
+                android:defaultValue="0"
+                app:argType="integer" />
+        </action>
     </fragment>
 
     <fragment
         android:id="@+id/bookmarkFragment"
         android:name="com.sgupta.composite.screens.bookmark.BookmarkFragment"
         android:label="BookmarkFragment"
-        tools:ignore="HardcodedText" />
+        tools:ignore="HardcodedText">
+
+        <action
+            android:id="@+id/action_bookmarkFragment_to_detailFragment"
+            app:destination="@id/detailFragment">
+            <argument
+                android:name="movieId"
+                android:defaultValue="0"
+                app:argType="integer" />
+        </action>
+    </fragment>
 
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.sgupta.composite.screens.search.SearchFragment"
         android:label="SearchFragment"
-        tools:ignore="HardcodedText" />
+        tools:ignore="HardcodedText">
+
+        <action
+            android:id="@+id/action_searchFragment_to_detailFragment"
+            app:destination="@id/detailFragment">
+            <argument
+                android:name="movieId"
+                android:defaultValue="0"
+                app:argType="integer" />
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.sgupta.composite.screens.detail.MovieDetailFragment"
+        android:label="MovieDetailFragment"
+        tools:ignore="HardcodedText">
+        <argument
+            android:name="movieId"
+            android:defaultValue="0"
+            app:argType="integer" />
+    </fragment>
 
 </navigation>

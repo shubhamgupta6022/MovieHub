@@ -113,6 +113,10 @@ class HomeFragment : Fragment() {
                     is MovieListItemViewState.BookmarkClicked -> {
                         viewModel.updateState(state)
                     }
+
+                    is MovieListItemViewState.ItemClicked -> {
+                        navigateToMovieDetail(state.movieId)
+                    }
                 }
             }
         }
@@ -123,9 +127,18 @@ class HomeFragment : Fragment() {
                     is TrendingMovieItemViewState.BookmarkClicked -> {
                         viewModel.updateState(state)
                     }
+
+                    is TrendingMovieItemViewState.ItemClicked -> {
+                        navigateToMovieDetail(state.movieId)
+                    }
                 }
             }
         }
+    }
+
+    private fun navigateToMovieDetail(movieId: Int) {
+        val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(movieId)
+        findNavController().navigate(action)
     }
 
     private fun setRecyclerView() {

@@ -34,7 +34,7 @@ data class MovieDetailAPIResponse(
     @SerializedName("tagline") val tagline: String?,
     @SerializedName("title") val title: String?,
     @SerializedName("video") val isVideo: Boolean?,
-    @SerializedName("vote_average") val voteAverage: Int?,
+    @SerializedName("vote_average") val voteAverage: Double?,
     @SerializedName("vote_count") val voteCount: Int?
 )
 
@@ -93,7 +93,7 @@ fun MovieDetailAPIResponse.toMovieDetailDomainModel() = MovieDetailDomainModel(
     tagline = tagline.orEmpty(),
     title = title.orEmpty(),
     isVideo = isVideo ?: false,
-    voteAverage = voteAverage ?: 0,
+    voteAverage = voteAverage ?: 0.0,
     voteCount = voteCount ?: 0
 )
 

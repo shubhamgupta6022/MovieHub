@@ -86,6 +86,11 @@ class TrendingMovieDelegateAdapter @Inject constructor() :
                         _uiStates.emit(TrendingMovieItemViewState.BookmarkClicked(model.id, model.bookmark))
                     }
                 }
+                root.setOnClickListener {
+                    delegateScope.launch {
+                        _uiStates.emit(TrendingMovieItemViewState.ItemClicked(model.id))
+                    }
+                }
             }
         }
     }

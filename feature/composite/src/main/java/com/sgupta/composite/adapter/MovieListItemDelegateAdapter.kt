@@ -89,6 +89,11 @@ class MovieListItemDelegateAdapter @Inject constructor() :
                         _uiStates.emit(MovieListItemViewState.BookmarkClicked(model.id, model.bookmark))
                     }
                 }
+                root.setOnClickListener {
+                    delegateScope.launch {
+                        _uiStates.emit(MovieListItemViewState.ItemClicked(model.id))
+                    }
+                }
             }
         }
     }

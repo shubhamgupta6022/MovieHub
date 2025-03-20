@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.sgupta.composite.adapter.manager.NowPlayingMoviesAdapterManager
 import com.sgupta.composite.adapter.states.MovieListItemViewState
 import com.sgupta.composite.databinding.FragmentBookmarkBinding
+import com.sgupta.composite.screens.home.HomeFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -58,6 +59,11 @@ class BookmarkFragment : Fragment() {
                 when (it) {
                     is MovieListItemViewState.BookmarkClicked -> {
                         viewModel.updateState(it)
+                    }
+
+                    is MovieListItemViewState.ItemClicked -> {
+                        val action = BookmarkFragmentDirections.actionBookmarkFragmentToDetailFragment(it.movieId)
+                        findNavController().navigate(action)
                     }
                 }
             }

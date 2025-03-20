@@ -25,7 +25,7 @@ data class MovieDetailDomainModel(
     val tagline: String,
     val title: String,
     val isVideo: Boolean,
-    val voteAverage: Int,
+    val voteAverage: Double,
     val voteCount: Int
 )
 
