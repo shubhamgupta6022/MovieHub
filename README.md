@@ -13,8 +13,12 @@ MovieHub is an Android application built using Kotlin that showcases trending an
 ## Screenshots
 Here are some screenshots of the app:
 
-![Home Screen](screenshots/homeScreen.png)
-![Detail Screen](screenshots/detailScreen.png)
+<div align="center">
+  <div style="display: flex; flex-direction: row; justify-content: space-between;">
+    <img src="screenshots/homeScreen.png" alt="Home Screen" width="45%" />
+    <img src="screenshots/detailScreen.png" alt="Detail Screen" width="45%" />
+  </div>
+</div>
 
 ## Prerequisites
 Before running the application, ensure you have the following:
