@@ -1,11 +1,13 @@
 package com.sgupta.composite.repoimpl
 
 import com.sgupta.composite.db.entity.MovieCategory
+import com.sgupta.composite.model.toMovieDetailDomainModel
 import com.sgupta.composite.model.toMovieListDomainModel
 import com.sgupta.composite.source.local.MovieLocalDataSource
 import com.sgupta.composite.source.remote.MovieHubAPIService
 import com.sgupta.core.flows.toResponseFlow
 import com.sgupta.core.network.Resource
+import com.sgupta.domain.model.MovieDetailDomainModel
 import com.sgupta.domain.model.MovieListDomainModel
 import com.sgupta.domain.repo.MovieHubRepo
 import kotlinx.coroutines.flow.Flow
@@ -153,6 +155,13 @@ class MovieHubRepoImpl @Inject constructor(
         return toResponseFlow(
             apiCall = { apiService.getMovieQuery(query = query) },
             mapper = { it?.toMovieListDomainModel() }
+        )
+    }
+
+    override fun getMovieDetail(movieId: Int): Flow<Resource<MovieDetailDomainModel>> {
+        return toResponseFlow(
+            apiCall = { apiService.getMovieDetail(movieId = movieId) },
+            mapper = { it?.toMovieDetailDomainModel() }
         )
     }
 }
