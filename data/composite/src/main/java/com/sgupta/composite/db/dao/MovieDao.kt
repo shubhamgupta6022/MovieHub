@@ -9,6 +9,9 @@ interface MovieDao {
     @Query("SELECT * FROM movies WHERE type = :type")
     fun getMoviesByType(type: String): Flow<List<MovieEntity>>
 
+    @Query("SELECT * FROM movies WHERE bookmark = 1")
+    fun getBookmarkedMovies(): Flow<List<MovieEntity>>
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertMovies(movies: List<MovieEntity>)
 
@@ -23,5 +26,4 @@ interface MovieDao {
 
     @Query("UPDATE movies SET bookmark = :isBookmarked WHERE id = :movieId")
     suspend fun updateBookmarkStatus(movieId: Int, isBookmarked: Boolean)
-
 }

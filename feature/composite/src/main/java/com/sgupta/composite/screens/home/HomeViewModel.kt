@@ -13,6 +13,7 @@ import com.sgupta.core.network.Resource
 import com.sgupta.domain.model.MovieItemDomainModel
 import com.sgupta.domain.usecase.GetNowPlayingMoviesUseCase
 import com.sgupta.domain.usecase.GetTrendingMoviesUseCase
+import com.sgupta.domain.usecase.SetBookmarkedMovieStatusUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -26,7 +27,8 @@ class HomeViewModel @Inject constructor(
     private val getNowPlayingMoviesUseCase: GetNowPlayingMoviesUseCase,
     private val movieItemDomainModelMapper: MovieItemDomainModelMapper,
     private val trendingMovieDomainModelMapper: TrendingMovieDomainModelMapper,
-    private val movieListModelUpdateMapper: MovieListModelUpdateMapper
+    private val movieListModelUpdateMapper: MovieListModelUpdateMapper,
+    private val setBookmarkedMovieStatusUseCase: SetBookmarkedMovieStatusUseCase
 ) : ViewModel() {
 
     private val _viewState = MutableStateFlow<HomeViewState>(HomeViewState.Loading)
@@ -90,6 +92,13 @@ class HomeViewModel @Inject constructor(
     fun updateState(state: ViewState) {
         when (state) {
             is MovieListItemViewState.BookmarkClicked -> {
+                setBookmarkedMovieStatusUseCase.execute(
+                    SetBookmarkedMovieStatusUseCase.Param(
+                        state.id,
+                        !state.bookmark
+                    )
+                )
+                    .launchIn(viewModelScope)
                 val updateModel = movieListModelUpdateMapper.convert(
                     MovieListModelUpdateMapper.Param(
                         state,
@@ -109,6 +118,13 @@ class HomeViewModel @Inject constructor(
             }
 
             is TrendingMovieItemViewState.BookmarkClicked -> {
+                setBookmarkedMovieStatusUseCase.execute(
+                    SetBookmarkedMovieStatusUseCase.Param(
+                        state.id,
+                        !state.bookmark
+                    )
+                )
+                    .launchIn(viewModelScope)
                 val updateModel = movieListModelUpdateMapper.convert(
                     MovieListModelUpdateMapper.Param(
                         state,
@@ -138,5 +154,6 @@ sealed class HomeViewState : ViewState {
 
     data class Error(val error: String) : HomeViewState()
     data class NowPlayingItemsUpdated(val list: MutableList<DelegateAdapterItem>) : HomeViewState()
-    data class TrendingMovieItemsUpdated(val list: MutableList<DelegateAdapterItem>) : HomeViewState()
+    data class TrendingMovieItemsUpdated(val list: MutableList<DelegateAdapterItem>) :
+        HomeViewState()
 }

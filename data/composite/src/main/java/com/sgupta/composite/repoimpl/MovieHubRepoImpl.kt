@@ -119,4 +119,27 @@ class MovieHubRepoImpl @Inject constructor(
             }
         }
     }
+
+    override fun getBookmarkList(): Flow<Resource<MovieListDomainModel>> = flow {
+        emit(Resource.Loading)
+        val cachedMovies = localDataSource.getBookmarkedMovies().first()
+        if (cachedMovies.isNotEmpty()) {
+            emit(
+                Resource.Success(
+                    MovieListDomainModel(
+                        page = 1,
+                        movieItemResponses = cachedMovies,
+                        totalPages = 1,
+                        totalResults = cachedMovies.size
+                    )
+                )
+            )
+        } else {
+            emit(Resource.Success(null))
+        }
+    }
+
+    override suspend fun setBookmarkStatus(id: Int, bookmark: Boolean) {
+        localDataSource.updateBookmarkStatus(id, bookmark)
+    }
 }

@@ -7,4 +7,6 @@ import kotlinx.coroutines.flow.Flow
 interface MovieHubRepo {
     fun getTrendingMovies(): Flow<Resource<MovieListDomainModel>>
     fun getNowPlayingMovies(page: Int): Flow<Resource<MovieListDomainModel>>
+    fun getBookmarkList(): Flow<Resource<MovieListDomainModel>>
+    suspend fun setBookmarkStatus(id: Int, bookmark: Boolean)
 }

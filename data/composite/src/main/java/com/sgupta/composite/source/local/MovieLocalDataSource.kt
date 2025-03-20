@@ -15,6 +15,11 @@ class MovieLocalDataSource @Inject constructor(
             .map { entities -> entities.map { it.toDomainModel() } }
     }
 
+    fun getBookmarkedMovies(): Flow<List<MovieItemDomainModel>> {
+        return movieDao.getBookmarkedMovies()
+            .map { entities -> entities.map { it.toDomainModel() } }
+    }
+
     suspend fun saveMovies(movies: List<MovieItemDomainModel>, type: String) {
         // Convert domain models to entities
         val newEntities = movies.map { MovieEntity.fromDomainModel(it, type) }
