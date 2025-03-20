@@ -65,7 +65,7 @@
 
             <TextView
                 android:id="@+id/tvTrendingMovies"
-                style="@style/Typography.Message"
+                style="@style/Typography.SemiBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -93,7 +93,7 @@
 
             <TextView
                 android:id="@+id/tvNowPlaying"
-                style="@style/Typography.Message"
+                style="@style/Typography.SemiBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -124,6 +124,7 @@
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:indeterminateTint="@color/color_primary_black"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

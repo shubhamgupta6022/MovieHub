@@ -78,6 +78,9 @@ class MovieDetailFragment : Fragment() {
                 viewModel.viewState.collect { state ->
                     when (state) {
                         is DetailViewState.Loading -> {
+                            binding.progressBar.visibility = View.VISIBLE
+                            binding.tvError.visibility = View.GONE
+                            binding.groupSuccess.visibility = View.GONE
                         }
 
                         is DetailViewState.Success -> {
@@ -85,6 +88,8 @@ class MovieDetailFragment : Fragment() {
                         }
 
                         is DetailViewState.Error -> {
+                            binding.progressBar.visibility = View.GONE
+                            binding.tvError.visibility = View.VISIBLE
                         }
                     }
                 }
@@ -96,6 +101,8 @@ class MovieDetailFragment : Fragment() {
         with(binding) {
             tvTitle.text = model.title
             tvOverviewDesc.text = model.overview
+            progressBar.visibility = View.GONE
+            groupSuccess.visibility = View.VISIBLE
 
             movieCastAdapter.submitList(model.cast)
 

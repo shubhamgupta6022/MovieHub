@@ -6,22 +6,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
-import com.sgupta.composite.adapter.states.MovieListItemViewState
 import com.sgupta.composite.databinding.MovieCastItemLayoutBinding
 import com.sgupta.composite.model.MovieCastItemUiModel
 import com.sgupta.core.delegator.DelegateAdapter
 import com.sgupta.core.delegator.DelegateAdapterItem
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
 import javax.inject.Inject
 
 class MovieCastItemDelegateAdapter @Inject constructor() :
     DelegateAdapter<MovieCastItemUiModel, MovieCastItemDelegateAdapter.ViewHolder>(
         MovieCastItemUiModel::class.java
     ) {
-
-    private val _uiStates = MutableSharedFlow<MovieListItemViewState>()
-    val uiStates = _uiStates.asSharedFlow()
 
     private val glideOptions = RequestOptions()
         .diskCacheStrategy(DiskCacheStrategy.ALL)

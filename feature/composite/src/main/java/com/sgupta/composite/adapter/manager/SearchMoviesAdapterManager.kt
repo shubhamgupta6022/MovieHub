@@ -2,6 +2,7 @@ package com.sgupta.composite.adapter.manager
 
 import com.sgupta.composite.adapter.MovieSearchItemDelegateAdapter
 import com.sgupta.composite.adapter.states.MovieListItemViewState
+import com.sgupta.composite.adapter.states.SearchListItemViewState
 import com.sgupta.core.delegator.CompositeAdapter
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.merge
@@ -16,7 +17,7 @@ class SearchMoviesAdapterManager @Inject constructor(
             .build()
     }
 
-    fun createMergedUiStates(): Flow<MovieListItemViewState> {
+    fun createMergedUiStates(): Flow<SearchListItemViewState> {
         return merge(movieSearchItemDelegateAdapter.uiStates)
     }
 }

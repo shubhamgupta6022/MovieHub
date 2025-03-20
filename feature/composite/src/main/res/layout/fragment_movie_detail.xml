@@ -13,6 +13,18 @@
         android:paddingBottom="8dp"
         tools:context=".screens.detail.MovieDetailFragment">
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateTint="@color/color_primary_black"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
+
         <ImageView
             android:id="@+id/ivBanner"
             android:layout_width="match_parent"
@@ -52,8 +64,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="20dp"
-            android:textSize="28sp"
             android:lineHeight="28sp"
+            android:textSize="28sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/ivPoster"
             app:layout_constraintTop_toBottomOf="@+id/ivPoster"
@@ -126,6 +138,28 @@
             app:layout_constraintTop_toBottomOf="@+id/tvCast"
             tools:itemCount="1"
             tools:listitem="@layout/movie_cast_item_layout" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/groupSuccess"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible"
+            app:constraint_referenced_ids="ivBanner,ivArrowBack,ivPoster,tvTitle,tvReleaseDate,tvOverview,tvOverviewDesc,tvCast,rvCast" />
+
+        <TextView
+            android:id="@+id/tvError"
+            style="@style/Typography.Message"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:gravity="center"
+            android:text="@string/no_data"
+            android:textSize="15sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

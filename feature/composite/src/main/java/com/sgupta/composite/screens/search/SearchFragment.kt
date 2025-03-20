@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sgupta.composite.adapter.manager.NowPlayingMoviesAdapterManager
 import com.sgupta.composite.adapter.manager.SearchMoviesAdapterManager
+import com.sgupta.composite.adapter.states.SearchListItemViewState
 import com.sgupta.composite.databinding.FragmentSearchBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -67,20 +68,37 @@ class SearchFragment : Fragment() {
                 viewModel.viewState.collect {
                     when (it) {
                         is SearchViewState.Loading -> {
-
+                            binding.progressBar.visibility = View.VISIBLE
+                            binding.tvNoData.visibility = View.GONE
                         }
 
                         is SearchViewState.Error -> {
-
+                            binding.progressBar.visibility = View.GONE
+                            binding.tvNoData.visibility = View.GONE
                         }
 
                         is SearchViewState.Success -> {
+                            binding.progressBar.visibility = View.GONE
+                            binding.tvNoData.visibility = View.GONE
                             moviesAdapter.submitList(it.items)
                         }
 
                         SearchViewState.NoData -> {
+                            binding.progressBar.visibility = View.GONE
+                            binding.tvNoData.visibility = View.VISIBLE
                             moviesAdapter.submitList(emptyList())
                         }
+                    }
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            moviesUiStates.collect {
+                when(it) {
+                    is SearchListItemViewState.ItemClicked -> {
+                        val action = SearchFragmentDirections.actionSearchFragmentToDetailFragment(it.movieId)
+                        findNavController().navigate(action)
                     }
                 }
             }

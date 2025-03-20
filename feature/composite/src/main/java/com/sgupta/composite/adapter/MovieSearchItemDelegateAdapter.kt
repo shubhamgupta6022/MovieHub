@@ -8,6 +8,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.sgupta.composite.R
 import com.sgupta.composite.adapter.states.MovieListItemViewState
+import com.sgupta.composite.adapter.states.SearchListItemViewState
 import com.sgupta.composite.databinding.MovieListItemLayoutBinding
 import com.sgupta.composite.databinding.MovieSearchItemLayoutBinding
 import com.sgupta.composite.model.MovieListItemUiModel
@@ -23,7 +24,7 @@ class MovieSearchItemDelegateAdapter @Inject constructor() :
         MovieListItemUiModel::class.java
     ) {
 
-    private val _uiStates = MutableSharedFlow<MovieListItemViewState>()
+    private val _uiStates = MutableSharedFlow<SearchListItemViewState>()
     val uiStates = _uiStates.asSharedFlow()
 
     private val glideOptions = RequestOptions()
@@ -62,6 +63,12 @@ class MovieSearchItemDelegateAdapter @Inject constructor() :
                     .load(model.posterUrl)
                     .apply(glideOptions)
                     .into(ivPoster)
+
+                root.setOnClickListener {
+                    delegateScope.launch {
+                        _uiStates.emit(SearchListItemViewState.ItemClicked(movieId = model.id))
+                    }
+                }
             }
         }
 
