@@ -1,5 +1,6 @@
 package com.sgupta.moviehub
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
@@ -19,11 +20,21 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupNavigation()
+        handleDeepLink(intent)
     }
 
     private fun setupNavigation() {
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
+    }
+
+    private fun handleDeepLink(intent: Intent) {
+        val intentData = intent.data
+
+        // Handle Deep Link
+        if (intentData != null) {
+            navController.handleDeepLink(intent)
+        }
     }
 }

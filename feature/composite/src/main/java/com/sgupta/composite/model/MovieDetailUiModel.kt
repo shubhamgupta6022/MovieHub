@@ -5,5 +5,7 @@ data class MovieDetailUiModel(
     val backdropUrl: String,
     val postUrl: String,
     val overview: String,
-    val cast: List<MovieCastItemUiModel>
+    val cast: List<MovieCastItemUiModel>,
+    val voteAverage: Double,
+    val id: Int
 )

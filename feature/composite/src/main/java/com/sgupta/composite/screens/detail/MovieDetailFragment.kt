@@ -1,6 +1,10 @@
 package com.sgupta.composite.screens.detail
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.URLSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -62,6 +66,11 @@ class MovieDetailFragment : Fragment() {
             ivArrowBack.setOnClickListener {
                 findNavController().popBackStack()
             }
+            
+            ivShare.setOnClickListener {
+                shareMovie()
+            }
+
             rvCast.apply {
                 layoutManager = LinearLayoutManager(
                     context,
@@ -69,6 +78,27 @@ class MovieDetailFragment : Fragment() {
                     false
                 )
                 adapter = movieCastAdapter
+            }
+        }
+    }
+
+    private fun shareMovie() {
+        viewModel.viewState.value.let { state ->
+            if (state is DetailViewState.Success) {
+                val movie = state.model
+                val deepLink = "moviehub://movie/movieId=${movie.id}"
+
+                val shareText = "Check out this movie: ${movie.title}\n" +
+                        "Rating: ${movie.voteAverage}\n" +
+                        "${movie.overview}\n\n" +
+                        "Watch on MovieHub: $deepLink"
+
+                val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                    type = "text/plain"
+                    putExtra(Intent.EXTRA_TEXT, shareText)
+                }
+
+                startActivity(Intent.createChooser(shareIntent, "Share Movie"))
             }
         }
     }

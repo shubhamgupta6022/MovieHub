@@ -45,6 +45,18 @@
             app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/color_primary_white" />
 
+        <ImageButton
+            android:id="@+id/ivShare"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="20dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_share"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/color_primary_white" />
+
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/ivPoster"
             android:layout_width="150dp"
@@ -118,7 +130,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:maxLines="2"
             android:text="@string/cast"
             android:textSize="22sp"
             app:layout_constraintStart_toStartOf="@+id/ivPoster"

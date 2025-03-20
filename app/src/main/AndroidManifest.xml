@@ -16,10 +16,22 @@
         <activity
             android:name=".MainActivity"
             android:exported="true">
+            <!-- Regular launcher intent filter -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <!-- Deep link intent filter -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="movie"
+                    android:scheme="moviehub" />
             </intent-filter>
         </activity>
     </application>

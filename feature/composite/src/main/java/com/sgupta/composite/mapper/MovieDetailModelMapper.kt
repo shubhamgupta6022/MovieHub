@@ -16,7 +16,9 @@ class MovieDetailModelMapper @Inject constructor(
             overview = from.overview,
             cast = from.productionCompanies.map {
                 productionCompanyDomainModelMapper.convert(it)
-            }
+            },
+            voteAverage = from.voteAverage,
+            id = from.id
         )
     }
 }
