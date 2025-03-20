@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -14,9 +15,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
+import com.sgupta.composite.R
 import com.sgupta.composite.adapter.manager.MovieCastAdapterManager
 import com.sgupta.composite.databinding.FragmentMovieDetailBinding
-import com.sgupta.composite.model.MovieCastItemUiModel
 import com.sgupta.composite.model.MovieDetailUiModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -81,6 +82,12 @@ class MovieDetailFragment : Fragment() {
                             binding.progressBar.visibility = View.VISIBLE
                             binding.tvError.visibility = View.GONE
                             binding.groupSuccess.visibility = View.GONE
+                            binding.ivArrowBack.setColorFilter(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.color_primary_black
+                                ), android.graphics.PorterDuff.Mode.SRC_IN
+                            )
                         }
 
                         is DetailViewState.Success -> {
@@ -90,6 +97,12 @@ class MovieDetailFragment : Fragment() {
                         is DetailViewState.Error -> {
                             binding.progressBar.visibility = View.GONE
                             binding.tvError.visibility = View.VISIBLE
+                            binding.ivArrowBack.setColorFilter(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.color_primary_black
+                                ), android.graphics.PorterDuff.Mode.SRC_IN
+                            )
                         }
                     }
                 }
@@ -103,6 +116,12 @@ class MovieDetailFragment : Fragment() {
             tvOverviewDesc.text = model.overview
             progressBar.visibility = View.GONE
             groupSuccess.visibility = View.VISIBLE
+            binding.ivArrowBack.setColorFilter(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.color_primary_white
+                ), android.graphics.PorterDuff.Mode.SRC_IN
+            )
 
             movieCastAdapter.submitList(model.cast)
 

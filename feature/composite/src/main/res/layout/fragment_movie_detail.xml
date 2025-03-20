@@ -144,7 +144,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="visible"
-            app:constraint_referenced_ids="ivBanner,ivArrowBack,ivPoster,tvTitle,tvReleaseDate,tvOverview,tvOverviewDesc,tvCast,rvCast" />
+            app:constraint_referenced_ids="ivBanner,ivPoster,tvTitle,tvReleaseDate,tvOverview,tvOverviewDesc,tvCast,rvCast" />
 
         <TextView
             android:id="@+id/tvError"
