@@ -8,7 +8,6 @@ import com.sgupta.composite.model.MovieListItemUiModel
 import com.sgupta.core.ViewState
 import com.sgupta.core.delegator.DelegateAdapterItem
 import com.sgupta.core.network.Resource
-import com.sgupta.domain.model.MovieListDomainModel
 import com.sgupta.domain.usecase.GetBookmarkedMoviesUseCase
 import com.sgupta.domain.usecase.SetBookmarkedMovieStatusUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel

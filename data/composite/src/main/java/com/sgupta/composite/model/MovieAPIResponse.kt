@@ -27,7 +27,8 @@ data class MovieItemResponse(
     @SerializedName("title") val title: String? = null,
     @SerializedName("video") val video: Boolean? = null,
     @SerializedName("vote_average") val voteAverage: Double? = null,
-    @SerializedName("vote_count") val voteCount: Int? = null
+    @SerializedName("vote_count") val voteCount: Int? = null,
+    @SerializedName("name") val name: String? = null,
 )
 
 fun MovieAPIResponse.toMovieListDomainModel() = MovieListDomainModel(
@@ -52,5 +53,6 @@ fun MovieItemResponse.toMovieItemDomainModel() = MovieItemDomainModel(
     title = title,
     video = video,
     voteAverage = voteAverage,
-    voteCount = voteCount
+    voteCount = voteCount,
+    name = name
 )

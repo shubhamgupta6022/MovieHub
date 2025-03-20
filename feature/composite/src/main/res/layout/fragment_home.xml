@@ -29,6 +29,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tvToolbar" />
 
+    <ImageView
+        android:id="@+id/ivSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:src="@drawable/ic_search"
+        app:layout_constraintBottom_toBottomOf="@+id/tvToolbar"
+        app:layout_constraintEnd_toStartOf="@+id/ivBookmark"
+        app:layout_constraintTop_toTopOf="@+id/tvToolbar" />
+
     <View
         android:id="@+id/separator"
         android:layout_width="match_parent"

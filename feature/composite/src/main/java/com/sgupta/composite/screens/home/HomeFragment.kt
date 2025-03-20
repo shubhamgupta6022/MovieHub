@@ -77,6 +77,9 @@ class HomeFragment : Fragment() {
         binding.ivBookmark.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_bookmarkFragment)
         }
+        binding.ivSearch.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_searchFragment)
+        }
     }
 
     private fun observeViewStates() {

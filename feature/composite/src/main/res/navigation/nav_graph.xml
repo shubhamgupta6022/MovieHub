@@ -14,12 +14,22 @@
         <action
             android:id="@+id/action_homeFragment_to_bookmarkFragment"
             app:destination="@id/bookmarkFragment" />
+
+        <action
+            android:id="@+id/action_homeFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/bookmarkFragment"
         android:name="com.sgupta.composite.screens.bookmark.BookmarkFragment"
         android:label="BookmarkFragment"
+        tools:ignore="HardcodedText" />
+
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.sgupta.composite.screens.search.SearchFragment"
+        android:label="SearchFragment"
         tools:ignore="HardcodedText" />
 
 </navigation>

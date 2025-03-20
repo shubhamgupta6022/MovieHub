@@ -48,7 +48,8 @@ class MovieHubRepoImpl @Inject constructor(
                     }
 
                     // Step 3: Fetch from local DB again and emit updated data
-                    val updatedMovies = localDataSource.getMoviesByType(MovieCategory.TRENDING.name).first()
+                    val updatedMovies =
+                        localDataSource.getMoviesByType(MovieCategory.TRENDING.name).first()
                     emit(
                         Resource.Success(
                             MovieListDomainModel(
@@ -60,8 +61,10 @@ class MovieHubRepoImpl @Inject constructor(
                         )
                     )
                 }
+
                 is Resource.Error -> emit(resource)
-                Resource.Loading -> { /* Do nothing */ }
+                Resource.Loading -> { /* Do nothing */
+                }
             }
         }
     }
@@ -99,7 +102,8 @@ class MovieHubRepoImpl @Inject constructor(
 
                     // Step 3: Fetch from local DB again and emit updated data if it's page 1
                     if (page == 1) {
-                        val updatedMovies = localDataSource.getMoviesByType(MovieCategory.NOW_PLAYING.name).first()
+                        val updatedMovies =
+                            localDataSource.getMoviesByType(MovieCategory.NOW_PLAYING.name).first()
                         emit(
                             Resource.Success(
                                 MovieListDomainModel(
@@ -114,8 +118,10 @@ class MovieHubRepoImpl @Inject constructor(
                         emit(resource)
                     }
                 }
+
                 is Resource.Error -> emit(resource)
-                Resource.Loading -> { /* Do nothing */ }
+                Resource.Loading -> { /* Do nothing */
+                }
             }
         }
     }
@@ -141,5 +147,12 @@ class MovieHubRepoImpl @Inject constructor(
 
     override suspend fun setBookmarkStatus(id: Int, bookmark: Boolean) {
         localDataSource.updateBookmarkStatus(id, bookmark)
+    }
+
+    override fun getMovieQuery(query: String): Flow<Resource<MovieListDomainModel>> {
+        return toResponseFlow(
+            apiCall = { apiService.getMovieQuery(query = query) },
+            mapper = { it?.toMovieListDomainModel() }
+        )
     }
 }

@@ -9,7 +9,8 @@ data class MovieListItemUiModel(
     val rating: String,
     val year: Int,
     val posterUrl: String,
-    val bookmark: Boolean
+    val bookmark: Boolean,
+    val overview: String
 ) : DelegateAdapterItem {
     override fun id(): Any = id
 

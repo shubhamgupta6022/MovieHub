@@ -9,4 +9,5 @@ interface MovieHubRepo {
     fun getNowPlayingMovies(page: Int): Flow<Resource<MovieListDomainModel>>
     fun getBookmarkList(): Flow<Resource<MovieListDomainModel>>
     suspend fun setBookmarkStatus(id: Int, bookmark: Boolean)
+    fun getMovieQuery(query: String): Flow<Resource<MovieListDomainModel>>
 }

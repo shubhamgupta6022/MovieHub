@@ -15,4 +15,11 @@ interface MovieHubAPIService {
         @Query("language") language: String = "en-US",
         @Query("page") page: Int
     ): Response<MovieAPIResponse>
+
+    @GET("search/collection")
+    suspend fun getMovieQuery(
+        @Query("language") language: String = "en-US",
+        @Query("page") page: Int = 1,
+        @Query("query") query: String,
+    ): Response<MovieAPIResponse>
 }
